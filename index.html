@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number to Emoji Converter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        #output {
+            font-size: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="number" id="inputNumber" placeholder="Enter a number between 1-255" min="1" max="255">
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const emojiMap = {
+            1: '🏠',
+            2: '🚗',
+            3: '✈️',
+            4: '🛳',
+            5: '🚌',
+            // ...
+            255: '🎒'
+        };
+
+        const inputNumber = document.getElementById('inputNumber');
+        const output = document.getElementById('output');
+
+        inputNumber.addEventListener('input', function() {
+            const value = parseInt(this.value, 10);
+            if (emojiMap[value]) {
+                output.textContent = emojiMap[value];
+            } else {
+                output.textContent = 'Invalid number';
+            }
+        });
+    </script>
+</body>
+</html>
