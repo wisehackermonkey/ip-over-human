@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Number Sequence to Emoji Converter</title>
+    <title>Number Array to Emoji Converter</title>
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -16,18 +17,22 @@
             font-size: 300px;
             display: flex;
             justify-content: center;
+            margin-bottom: 20px;
+        }
+        #inputArea {
+            width: 80%;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <div>
-        <input type="text" id="inputNumber" placeholder="Enter a sequence of 3 numbers (e.g., 2 3 4)">
-        <div id="output"></div>
-    </div>
+    <textarea id="inputArea" placeholder="Enter an array of numbers (e.g., [69, 0, 0, 28])"></textarea>
+    <div id="output"></div>
+    <button id="nextButton">Next</button>
 
     <script>
         const emojiMap = {
-            0: "💎",
+            0: '🌑',
             1: '🏠',
             2: '🚗',
             3: '✈️',
@@ -37,21 +42,40 @@
             255: '🎒'
         };
 
-        const inputNumber = document.getElementById('inputNumber');
-        const output = document.getElementById('output');
+        let currentIndex = 0;
+        let currentArray = [];
 
-        inputNumber.addEventListener('input', function() {
-            const values = this.value.split(' ').map(Number);
-            if (values.length !== 3) {
-                output.textContent = 'Please enter exactly 3 numbers separated by spaces.';
+        const inputArea = document.getElementById('inputArea');
+        const output = document.getElementById('output');
+        const nextButton = document.getElementById('nextButton');
+
+        function updateEmojis() {
+            if (currentIndex >= currentArray.length) {
+                output.textContent = 'End of array';
                 return;
             }
 
-            const emojis = values.map(value => {
+            const nextThree = currentArray.slice(currentIndex, currentIndex + 3);
+            const emojis = nextThree.map(value => {
                 return emojiMap[value] || '❓';
             });
 
             output.textContent = emojis.join(' ');
+            currentIndex += 3;
+        }
+
+        inputArea.addEventListener('input', function() {
+            try {
+                currentArray = JSON.parse(this.value);
+                currentIndex = 0;
+                updateEmojis();
+            } catch (e) {
+                output.textContent = 'Invalid array format';
+            }
+        });
+
+        nextButton.addEventListener('click', function() {
+            updateEmojis();
         });
     </script>
 </body>
