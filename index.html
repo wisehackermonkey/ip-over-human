@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Number to Emoji Converter</title>
@@ -12,14 +13,16 @@
             margin: 0;
             background-color: #f4f4f4;
         }
+
         #output {
             font-size: 300px;
         }
     </style>
 </head>
+
 <body>
     <div>
-        <input type="number" id="inputNumber" placeholder="Enter a number between 1-255" min="1" max="255">
+        <input type="text" id="inputNumbers" placeholder="Enter numbers between 1-255, separated by commas" width="60">
         <div id="output"></div>
     </div>
 
@@ -34,17 +37,23 @@
             255: '🎒'
         };
 
-        const inputNumber = document.getElementById('inputNumber');
+        const inputNumbers = document.getElementById('inputNumbers');
         const output = document.getElementById('output');
 
-        inputNumber.addEventListener('input', function() {
-            const value = parseInt(this.value, 10);
-            if (emojiMap[value]) {
-                output.textContent = emojiMap[value];
-            } else {
-                output.textContent = 'Invalid number';
+        inputNumbers.addEventListener('input', function () {
+            const values = this.value.split(',').map(s => s.trim());
+            let emojis = '';
+            for (const value of values) {
+                const intValue = parseInt(value, 10);
+                if (emojiMap[intValue]) {
+                    emojis += emojiMap[intValue];
+                } else {
+                    emojis += '?';
+                }
             }
+            output.textContent = emojis;
         });
     </script>
 </body>
+
 </html>
