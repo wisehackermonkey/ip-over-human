@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Number Array to Emoji Converter</title>
+    <script src="emoji.js"></script>
     <style>
         body {
             display: flex;
@@ -25,6 +26,9 @@
             flex-direction: column;
             align-items: center;
         }
+        .emoji-name {
+            font-size: small;
+        }
         #inputArea {
             width: 80%;
             margin-bottom: 20px;
@@ -36,7 +40,6 @@
     <div id="output"></div>
     <button id="nextButton">Next</button>
 
-    <script src="emoji.js">
     <script>
         function convertToBase(n, base) {
             const result = [];
@@ -47,8 +50,6 @@
             }
             return result.reverse();
         }
-
-       
 
         let currentIndex = 0;
         let currentArray = [];
@@ -66,7 +67,7 @@
             }
 
             const nextThree = currentArray.slice(currentIndex, currentIndex + 3);
-            const base180Numbers = nextThree.flatMap(value => convertToBase(value, 77));
+            const base180Numbers = nextThree.map(value => convertToBase(value, 180)[0] || 0);  // Take the most significant digit
 
             base180Numbers.forEach(value => {
                 const emojiInfo = emojiMap[value] || {emoji: '❓', name: 'Unknown'};
@@ -78,6 +79,7 @@
 
                 const nameElement = document.createElement('div');
                 nameElement.textContent = emojiInfo.name;
+                nameElement.classList.add('emoji-name');
 
                 emojiContainer.appendChild(emojiElement);
                 emojiContainer.appendChild(nameElement);
