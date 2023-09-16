@@ -67,10 +67,11 @@ def check_crc(data, expected_crc):
 charset = "💎🏠🚗✈️🛳🚌🏫🏥🗼🗽🎡🎢🪑🛏💻🖨🖱📀📸📺📞💡🔦🗑🧻🧼🧴🪒🧹🎈🎁🎃🎄🧩🧸🪄🎮🎲🎰🪅🪆🪡🧶🏥🏦🏭🏰🗿🎡🎢💈🎪🎭🎨🧵🧶👓👕👖🧣🧤🧥🧦👗🩲👙👛👜🎒👞👑🎩🎓🧢💄💍"
 base = 77
 
-
+# INPUT_IP = input("IP address you want to ping?")
 
 # Create an IP packet object
-ip = IP(dst="8.8.8.8")
+ip = IP(dst="192.168.1.20")
+# ip = IP(dst=INPUT_IP)
 
 # Create an ICMP packet object
 icmp = ICMP()
@@ -84,6 +85,7 @@ emoji_packet = convert_packet_to_emoji_base(raw_packet_list, charset, base)
 
 correction_code = crc("".join(map(str,raw_packet_list)))
 emoji_crc = "".join(simple_emoji_convert(correction_code,charset, base))
-print(f"""packet: {emoji_packet},  {emoji_crc}""")
+print(f"""var currentArray = {repr(list(emoji_packet) + ['crc'] +list(emoji_crc))}
+""")
 
 
