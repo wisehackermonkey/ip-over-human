@@ -15,7 +15,7 @@
             background-color: #f4f4f4;
         }
         #output {
-            font-size: 300px;
+            font-size: 200px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
@@ -26,12 +26,14 @@
 </head>
 <body>
     <div id="output"></div>
+    <button id="nextButton">Next</button>
 
     <script>
         let currentIndex = 0;
         let currentArray = ["🪒", "🎢️", "🎃", "✈", "🚗", "📀", "📺", "💻", "🏥", "🛳", "📀", "🛳", "🧶", "💍", "🧢", "🎲", "🧣", "🎢", "🗼", "🧴", "🎈", "🎲", "🪅", "🚗", "🏦"];
 
         const output = document.getElementById('output');
+        const nextButton = document.getElementById('nextButton');
 
         function showNextEmojis() {
             output.innerHTML = '';  // Clear previous emojis
@@ -51,11 +53,10 @@
             }
         }
 
+        nextButton.addEventListener('click', showNextEmojis);
+
         // Show the initial emojis
         showNextEmojis();
-
-        // Periodically update the emojis
-        setInterval(showNextEmojis, 2000);  // Adjust the time interval as needed
     </script>
 </body>
 </html>
